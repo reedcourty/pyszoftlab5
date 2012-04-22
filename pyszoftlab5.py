@@ -4,12 +4,22 @@
 import os
 os.chdir(os.path.dirname(__file__))
 
-from bottle import debug, route, template, run
+from functions import getdatetime
+
+from bottle import debug, route, template, run, static_file
 
 debug(True)
 
 @route('/')
 def index():
-    return template('index')
+    page_title = "Nádudvari György (reedcourty) - Szoftver laboratórium 5 - 5. (egyébként PHP, de most Python) mérés"
+    css_files = ['/static/style.css', '/static/style_.css']
+    js_files = []
+    now = getdatetime()
+    return template('index', page_title=page_title, css_files=css_files, js_files=js_files, now=now)
     
-run(host='localhost', port='80')
+@route('/static/<filename:path>')
+def static(filename):
+    return static_file(filename, root='./static')
+    
+run(host='localhost', port='80', reloader=True)

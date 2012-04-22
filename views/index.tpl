@@ -1,4 +1,4 @@
-%include header 
+%include header page_title=page_title, css_files=css_files, js_files=js_files
 <div id="main">
     <article>
         <h1>Nádudvari György (reedcourty) Python/Bottle oldala</h1>
@@ -28,4 +28,4 @@
         </section>
     </article>
 </div>
-%include footer 
+%include footer now=now
