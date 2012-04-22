@@ -7,5 +7,6 @@
         %end
     </head>
     <body>
-        <div id="menu">
-        </div>
+        <div id="frame">
+            <div id="menu">
+            </div>
