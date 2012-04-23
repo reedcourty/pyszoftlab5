@@ -5,7 +5,7 @@ import os
 
 from sqlalchemy.exc import DBAPIError
 
-from bottle import debug, route, template, run, static_file
+from bottle import debug, route, template, run, static_file, get, post, request
 
 from functions import getdatetime, get_companies, get_company_details
 from config import PROJECT_PATH, DEBUG, MAIN_TITLE
@@ -24,6 +24,32 @@ def index():
 def static(filename):
     return static_file(filename, root='./static')
     
+@route('/companies', method='POST')
+def companies_search():
+    page_title = "Cégek - {0}".format(MAIN_TITLE)
+    css_files = ['/static/style.css', '/static/style_.css']
+    js_files = []
+    now = getdatetime()
+    companies = []
+    errors = []
+    
+    nev = request.forms.get('nev')
+    bankszamla = request.forms.get('bankszamla')
+    kapcsolattarto = request.forms.get('kapcsolattarto')
+    
+    if DEBUG:
+        print("POST -- nev: {0}, bankszamla: {1}, kapcsolattarto: {2}".format(nev, bankszamla, kapcsolattarto))
+    
+    try:
+        companies = get_companies()
+    except DBAPIError as e:
+        if DEBUG:
+            print(e.message)
+            errors = ["Nem sikerült csatlakozni az adatbázishoz! :("]
+    
+    return template('companies', page_title=page_title, css_files=css_files, js_files=js_files, now=now, errors=errors, companies=companies)
+
+    
 @route('/companies')
 def companies():
     page_title = "Cégek - {0}".format(MAIN_TITLE)
@@ -32,6 +58,7 @@ def companies():
     now = getdatetime()
     companies = []
     errors = []
+    
     try:
         companies = get_companies()
     except DBAPIError as e:
