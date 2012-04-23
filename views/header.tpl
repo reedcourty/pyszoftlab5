@@ -2,9 +2,11 @@
 <html>
     <head>
         <title>{{page_title}}</title>
+        %# Betöltjük a CSS leírókat:
         %for element in css_files:
             <link rel="stylesheet" type="text/css" href="{{element}}" />
         %end
+        %# Betöltjük a scripteket:
         %for element in js_files:
             <script type="text/javascript" src="{{element}}"></script>
         %end
