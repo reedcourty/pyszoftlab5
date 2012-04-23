@@ -4,3 +4,58 @@ body {
     background-color: #F2F3F4;
     font-family: arial, verdana;
 }
+
+#frame {
+    border: solid 5px #A4C639;
+    box-shadow: 0px 0px 5px 3px #A4C639;
+
+}
+
+#menu {
+    padding: 1px 10px;
+    background-color: #8DB600;
+}
+
+#menu p {
+    padding: 5px;
+    margin: 0px;
+}
+
+#menu a {
+    padding: 10px 10px 8px 10px;
+    border-top: solid 2px #8DB600;
+    border-right: solid 2px #8DB600;
+    border-left: solid 2px #8DB600;
+    background-color: #A4C639;
+    text-decoration: none;
+    font-family: arial, verdana;
+    font-weight: bold;
+    color: #008000;
+}
+
+#main {
+    height: auto;
+    background-color: #A4C639;
+    border: solid 2px #8DB600;
+}
+
+#main p {
+    padding: 10px;
+    margin: 0px;
+}
+
+#main h1 {
+    padding: 10px;
+    margin: 0px;
+}
+
+#main h2 {
+    padding: 0px 10px;
+    font-size: 18px;
+}
+
+#footer {
+    margin: 0px;
+    padding: 1px 10px;
+    background-color: #8DB600;
+}
