@@ -54,12 +54,13 @@ def companies_post():
     nev = request.forms.get('nev')
     bankszamla = request.forms.get('bankszamla')
     kapcsolattarto = request.forms.get('kapcsolattarto')
+    operator = request.forms.get('operator')
     
     if DEBUG:
-        print("POST -- nev: {0}, bankszamla: {1}, kapcsolattarto: {2}".format(nev, bankszamla, kapcsolattarto))
+        print("POST -- nev: {0}, bankszamla: {1}, kapcsolattarto: {2}, operator: {3}".format(nev, bankszamla, kapcsolattarto, operator))
     
     try:
-        companies = get_companies()
+        companies = get_companies(nev=nev, bankszamla=bankszamla, kapcsolattarto=kapcsolattarto, operator=operator)
     except DBAPIError as e:
         if DEBUG:
             print(e.message)
