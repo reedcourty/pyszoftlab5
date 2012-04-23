@@ -27,5 +27,8 @@ Static Files
 
 Lett config.py, ami kicsit talán erőltetett.
 
+Szerencsére külön nem kell az adatbázisból kapott adatokat UTF-8-ra konvertálni.
+
+
 
     

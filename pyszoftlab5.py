@@ -8,13 +8,13 @@ from sqlalchemy.exc import DBAPIError
 from bottle import debug, route, template, run, static_file
 
 from functions import getdatetime, get_companies
-from config import PROJECT_PATH, DEBUG
+from config import PROJECT_PATH, DEBUG, MAIN_TITLE
 
 debug(DEBUG)
 
 @route('/')
 def index():
-    page_title = "Kezdő oldal - Nádudvari György (reedcourty) - Szoftver laboratórium 5 - 5. (egyébként PHP, de most Python) mérés"
+    page_title = "Kezdő oldal - {0}".format(MAIN_TITLE)
     css_files = ['/static/style.css', '/static/style_.css']
     js_files = []
     now = getdatetime()
@@ -26,7 +26,7 @@ def static(filename):
     
 @route('/companies')
 def companies():
-    page_title = "Cégek - Nádudvari György (reedcourty) - Szoftver laboratórium 5 - 5. (egyébként PHP, de most Python) mérés"
+    page_title = "Cégek - {0}".format(MAIN_TITLE)
     css_files = ['/static/style.css', '/static/style_.css']
     js_files = []
     now = getdatetime()
@@ -43,7 +43,7 @@ def companies():
     
 @route('/company-details')
 def companies():
-    page_title = "Cég részletei - Nádudvari György (reedcourty) - Szoftver laboratórium 5 - 5. (egyébként PHP, de most Python) mérés"
+    page_title = "Cég részletei - {0}".format(MAIN_TITLE)
     css_files = ['/static/style.css', '/static/style_.css']
     js_files = []
     now = getdatetime()
