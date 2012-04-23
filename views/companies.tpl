@@ -21,7 +21,22 @@
                         %else:
                             <td><input id="operator_and" name="operator" type="radio" value="AND" /></td>
                         %end
-                        <td colspan="5" style="text-align: left;"><label for="operator_and">A megadott feltételek mind illeszkedjenek</label></td>
+                        <td colspan="3" style="text-align: left;"><label for="operator_and">A megadott feltételek mind illeszkedjenek</label></td>
+                        <td>           
+                            <select id="rendezes" name="rendezes">
+                                %if prepost['rendezes'] == 'nev':
+                                    <option value="nev" selected="selected">Név</option>
+                                %else:
+                                    <option value="nev">Név</option>
+                                %end
+                                %if prepost['rendezes'] == 'kapcsolattarto':
+                                    <option value="kapcsolattarto" selected="selected">Kapcsolattartó</option>
+                                %else:
+                                    <option value="kapcsolattarto">Kapcsolattartó</option>
+                                %end
+                            </select>
+                        </td>
+                        <td style="text-align: left;"><label for="rendezes">szerinti rendezés</label></td>
                     </tr>
                     <tr>
                         %if prepost['operator'] == 'OR':
@@ -57,7 +72,11 @@
                         %for company in companies:
                             <tr>
                                 <td><a href="/company-details/{{company['id']}}">{{company['nev']}}</a></td>
-                                <td>{{company['kapcsolattarto']}}</td>
+                                %if company['kapcsolattarto'] != None:
+                                    <td>{{company['kapcsolattarto']}}</td>
+                                %else:
+                                    <td>nincs megadva</td>
+                                %end
                             </tr>
                         %end
                     </tbody>

@@ -23,13 +23,20 @@ def is_valid(input):
     
     return valid;
     
-def create_query_from_search(nev, bankszamla, kapcsolattarto, operator):
-    prepost = {'nev': "", 'bankszamla': "", 'kapcsolattarto': "", 'operator': 'AND'}
+def create_query_from_search(nev, bankszamla, kapcsolattarto, operator, rendezes):
+    prepost = {'nev': "", 'bankszamla': "", 'kapcsolattarto': "", 'operator': 'AND', 'rendezes': 'nev'}
     operator = operator.upper()
     if ((operator == 'AND') or (operator == 'OR')):
         prepost['operator'] = operator
     else:
         operator = 'AND'
+    
+    rendezes = rendezes.lower()    
+    if ((rendezes == 'nev') or (rendezes == 'kapcsolattarto')):
+        prepost['rendezes'] = rendezes
+    else:
+        rendezes = 'nev'
+    
     query = "SELECT id, nev, kapcsolattarto FROM cegek "
     if ((nev != '') or (bankszamla != '') or (kapcsolattarto != '')):
         query = query + "WHERE "
@@ -56,19 +63,17 @@ def create_query_from_search(nev, bankszamla, kapcsolattarto, operator):
         if query.endswith('WHERE '):
             query = query[:-(len('WHERE '))]
         
-    query = query + "ORDER BY nev;"
+    query = query + "ORDER BY {0};".format(rendezes)
     
     if DEBUG:
         print(query)
-    
-    print("create_query_from_search: {0}".format(prepost))
-    
+        
     return query, prepost
     
-def get_companies(nev='', bankszamla='', kapcsolattarto='', operator='AND'):
+def get_companies(nev='', bankszamla='', kapcsolattarto='', operator='AND', rendezes='nev'):
     companies = []
     
-    query, prepost = create_query_from_search(nev=nev, bankszamla=bankszamla, kapcsolattarto=kapcsolattarto, operator=operator)
+    query, prepost = create_query_from_search(nev=nev, bankszamla=bankszamla, kapcsolattarto=kapcsolattarto, operator=operator, rendezes=rendezes)
 
     if DEBUG:
         print(u"Kapcsolódás ({0}://{1}:{2}@{3}/{4})...".format(DB_DIALECT, DB_USER, DB_PASSWD, DB_SERVER, DB_NAME))

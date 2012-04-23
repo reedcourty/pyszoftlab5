@@ -33,7 +33,7 @@ def companies_get():
     companies = []
     errors = []
     
-    prepost = {'nev': "", 'bankszamla': "", 'kapcsolattarto': "", 'operator': 'AND'}
+    prepost = {'nev': "", 'bankszamla': "", 'kapcsolattarto': "", 'operator': 'AND', 'rendezes': 'nev'}
     
     try:
         companies, _ = get_companies()
@@ -57,12 +57,13 @@ def companies_post():
     bankszamla = request.forms.get('bankszamla')
     kapcsolattarto = request.forms.get('kapcsolattarto')
     operator = request.forms.get('operator')
+    rendezes = request.forms.get('rendezes')
     
     if DEBUG:
-        print("POST -- nev: {0}, bankszamla: {1}, kapcsolattarto: {2}, operator: {3}".format(nev, bankszamla, kapcsolattarto, operator))
+        print("POST -- nev: {0}, bankszamla: {1}, kapcsolattarto: {2}, operator: {3}, rendezes: {4}".format(nev, bankszamla, kapcsolattarto, operator, rendezes))
     
     try:
-        companies, prepost = get_companies(nev=nev, bankszamla=bankszamla, kapcsolattarto=kapcsolattarto, operator=operator)
+        companies, prepost = get_companies(nev=nev, bankszamla=bankszamla, kapcsolattarto=kapcsolattarto, operator=operator, rendezes=rendezes)
     except DBAPIError as e:
         if DEBUG:
             print(e.message)
