@@ -18,7 +18,7 @@ Először is route-ing.
 run()
 
 Alap template rendszer működése, paraméter átadás, include lehetősége, paraméter
-átadás ott.
+átadás ott, megjegyzések (%#)
 
 Static Files
 

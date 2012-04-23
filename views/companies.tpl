@@ -1,3 +1,4 @@
+%# Betöltjük a fejlécet:
 %include header page_title=page_title, css_files=css_files, js_files=js_files
 <div id="main">
     <article>
@@ -9,6 +10,7 @@
                 </div>
             %end
         %else:
+            %# Ha kaptunk a cégekről listát, akkor megjelenítünk egy táblázatot:
             %if len(companies) > 0:
                 <table id="result_table">
                     <thead> 
@@ -27,10 +29,11 @@
                         %end
                     </tbody>
                 </table>
-                %else:
-                    <p>Nincs megjeleníthető cég az adatbázisban.</p>
-                %end
+            %else:
+                <p>Nincs megjeleníthető cég az adatbázisban.</p>
+            %end
         %end
     </article>
 </div>
+%# Betöltjük a láblécet
 %include footer now=now
