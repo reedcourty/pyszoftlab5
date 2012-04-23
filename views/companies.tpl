@@ -61,7 +61,7 @@
         %else:
             %# Ha kaptunk a cégekről listát, akkor megjelenítünk egy táblázatot:
             %if len(companies) > 0:
-                <table id="result_table">
+                <table id="result_table" class="tablesorter">
                     <thead> 
                         <tr>
                             <th>Név</th>

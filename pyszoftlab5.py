@@ -8,15 +8,15 @@ from sqlalchemy.exc import DBAPIError
 from bottle import debug, route, template, run, static_file, get, post, request
 
 from functions import getdatetime, get_companies, get_company_details
-from config import PROJECT_PATH, DEBUG, MAIN_TITLE
+from config import PROJECT_PATH, DEBUG, MAIN_TITLE, CSS_FILES, JS_FILES
 
 debug(DEBUG)
 
 @route('/')
 def index():
     page_title = "Kezdő oldal - {0}".format(MAIN_TITLE)
-    css_files = ['/static/style.css', '/static/style_.css']
-    js_files = []
+    css_files = CSS_FILES
+    js_files = JS_FILES
     now = getdatetime()
     return template('index', page_title=page_title, css_files=css_files, js_files=js_files, now=now)
     
@@ -27,8 +27,8 @@ def static(filename):
 @route('/companies')
 def companies_get():
     page_title = "Cégek - {0}".format(MAIN_TITLE)
-    css_files = ['/static/style.css', '/static/style_.css']
-    js_files = []
+    css_files = CSS_FILES
+    js_files = JS_FILES
     now = getdatetime()
     companies = []
     errors = []
@@ -47,8 +47,8 @@ def companies_get():
 @route('/companies', method='POST')
 def companies_post():
     page_title = "Cégek - {0}".format(MAIN_TITLE)
-    css_files = ['/static/style.css', '/static/style_.css']
-    js_files = []
+    css_files = CSS_FILES
+    js_files = JS_FILES
     now = getdatetime()
     companies = []
     errors = []
@@ -75,8 +75,8 @@ def companies_post():
 @route('/company-details/<id:int>')
 def companies(id):
     page_title = "Cég részletei - {0}".format(MAIN_TITLE)
-    css_files = ['/static/style.css', '/static/style_.css']
-    js_files = []
+    css_files = CSS_FILES
+    js_files = JS_FILES
     now = getdatetime()
     company = []
     errors = []
