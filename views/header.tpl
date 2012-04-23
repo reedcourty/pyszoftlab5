@@ -9,4 +9,9 @@
     <body>
         <div id="frame">
             <div id="menu">
+                <p>
+                    <a href="/">Kezdő oldal</a>
+                    <a href="/companies">Cégek</a>
+                    <a href="/company-details">Cég részletezése</a>
+                </p>
             </div>
