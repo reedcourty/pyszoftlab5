@@ -50,5 +50,5 @@ def get_company_details(id):
         company.append({'id': row.id, 'nev': row.nev, 'bankszamla': row.bankszamla, 'kapcsolattarto': row.kapcsolattarto})
     
     results.close()
-    print(company)
+    
     return company
