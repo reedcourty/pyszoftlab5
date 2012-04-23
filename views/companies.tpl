@@ -3,6 +3,32 @@
 <div id="main">
     <article>
         <h1>Cégek</h1>
+        
+        <div id="kereso">
+            <form id="kereso_form" method="post">
+                <table id="search_form_table">
+                    <tr>
+                        <td><label for="nev">Név:</label></td>
+                        <td><input id="nev" name="nev" type="search" /></td>
+                        <td><label for="bankszamla">Bankszámla:</label></td>
+                        <td><input id="bankszamla" name="bankszamla" type="search" /></td>
+                        <td><label for="kapcsolattarto">Kapcsolattartó:</label></td>
+                        <td><input id="kapcsolattarto" name="kapcsolattarto" type="search" /></td>   
+                    </tr>
+                    <tr>
+                        <td><input id="operator_and" name="operator" type="radio" value="AND" checked="checked" /></td>
+                        <td colspan="5" style="text-align: left;"><label for="operator_and">A megadott feltételek mind illeszkedjenek</label></td>
+                    </tr>
+                    <tr>
+                        <td><input id="operator_or" name="operator" type="radio" value="OR" /></td>
+                        <td colspan="3" style="text-align: left;"><label for="operator_or">A megadott feltételek bármelyike illeszkedjen</label></td>
+                        <td colspan="2"><input type="submit" value="Keresés" /></td>
+                    </tr>
+                </table>
+            </form>
+            %#{if $Query}<p>A keresési paraméterekből száramazó SQL lekérdezés: <br />{$Query}</p>{/if}
+        </div>
+        
         %if len(errors) > 0:
             %for error in errors:
                 <div class="error">

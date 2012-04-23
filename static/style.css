@@ -77,6 +77,21 @@ body {
     background-color: #8DB600;
 }
 
+#kereso {
+    padding: 5px;
+    margin: 20px;
+    border: dotted 2px #8DB600;
+}
+
+#kereso table {
+    border: none;
+}
+
+#kereso tr td {
+    border: none;
+    text-align: right;
+}
+
 #footer {
     margin: 0px;
     padding: 1px 10px;

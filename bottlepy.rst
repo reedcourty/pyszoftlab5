@@ -34,6 +34,11 @@ Szerencsére külön nem kell az adatbázisból kapott adatokat UTF-8-ra konvert
 
 Semmi különös.
 
+4. feladat
+----------
+
+GET, POST metódusok
+
 
 
 
