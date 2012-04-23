@@ -2,7 +2,9 @@
 # -*- coding: UTF-8 -*-
 
 import os
-os.chdir(os.path.dirname(__file__))
+
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
+os.chdir(PROJECT_PATH)
 
 from functions import getdatetime
 
