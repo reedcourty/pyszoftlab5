@@ -24,19 +24,33 @@ def is_valid(input):
     return valid;
     
 def create_query_from_search(nev, bankszamla, kapcsolattarto, operator):
-    operator = operator.upper();
+    prepost = {'nev': "", 'bankszamla': "", 'kapcsolattarto': "", 'operator': 'AND'}
+    operator = operator.upper()
+    if ((operator == 'AND') or (operator == 'OR')):
+        prepost['operator'] = operator
+    else:
+        operator = 'AND'
     query = "SELECT id, nev, kapcsolattarto FROM cegek "
     if ((nev != '') or (bankszamla != '') or (kapcsolattarto != '')):
         query = query + "WHERE "
         if ((nev != '') and is_valid(nev)):
             query = query + "nev LIKE '%{0}%' {1} ".format(nev, operator)
+            prepost['nev'] = nev
+        else:
+            prepost['nev'] = ""
         if (bankszamla != ''):
             import re
             valid = re.search(r"^[\d]{1,10}$", bankszamla)
             if (valid != None):
                 query = query + "bankszamla LIKE '%{0}%' {1} ".format(bankszamla, operator)
+                prepost['bankszamla'] = bankszamla
+            else:
+                prepost['bankszamla'] = ""
         if ((kapcsolattarto != '') and is_valid(kapcsolattarto)):
             query = query + "kapcsolattarto LIKE '%{0}%' {1} ".format(kapcsolattarto, operator)
+            prepost['kapcsolattarto'] = kapcsolattarto
+        else:
+            prepost['kapcsolattarto'] = ""
         if query.endswith(operator + " "):
             query = query[:-(len(operator)+1)]
         if query.endswith('WHERE '):
@@ -47,12 +61,14 @@ def create_query_from_search(nev, bankszamla, kapcsolattarto, operator):
     if DEBUG:
         print(query)
     
-    return query
+    print("create_query_from_search: {0}".format(prepost))
+    
+    return query, prepost
     
 def get_companies(nev='', bankszamla='', kapcsolattarto='', operator='AND'):
     companies = []
     
-    query = create_query_from_search(nev=nev, bankszamla=bankszamla, kapcsolattarto=kapcsolattarto, operator=operator)
+    query, prepost = create_query_from_search(nev=nev, bankszamla=bankszamla, kapcsolattarto=kapcsolattarto, operator=operator)
 
     if DEBUG:
         print(u"Kapcsolódás ({0}://{1}:{2}@{3}/{4})...".format(DB_DIALECT, DB_USER, DB_PASSWD, DB_SERVER, DB_NAME))
@@ -60,7 +76,7 @@ def get_companies(nev='', bankszamla='', kapcsolattarto='', operator='AND'):
     engine = create_engine("{0}://{1}:{2}@{3}/{4}".format(DB_DIALECT, DB_USER, DB_PASSWD, DB_SERVER, DB_NAME))
 
     try:
-        results = engine.execute(query)
+        results = engine.execute(query.decode('utf8').encode('iso-8859-2'))
     except DBAPIError as e:
         raise e
     
@@ -69,7 +85,7 @@ def get_companies(nev='', bankszamla='', kapcsolattarto='', operator='AND'):
     
     results.close()
     
-    return companies
+    return companies, prepost
     
 def get_company_details(id):
     company = []
@@ -81,7 +97,7 @@ def get_company_details(id):
 
     query = "SELECT id, nev, bankszamla, kapcsolattarto FROM cegek WHERE id = ? ORDER BY nev;"
     try:
-        results = engine.execute(query, id)
+        results = engine.execute(query.decode('utf8').encode('iso-8859-2'), id)
     except DBAPIError as e:
         raise e
     

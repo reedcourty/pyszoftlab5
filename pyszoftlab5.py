@@ -33,14 +33,16 @@ def companies_get():
     companies = []
     errors = []
     
+    prepost = {'nev': "", 'bankszamla': "", 'kapcsolattarto': "", 'operator': 'AND'}
+    
     try:
-        companies = get_companies()
+        companies, _ = get_companies()
     except DBAPIError as e:
         if DEBUG:
             print(e.message)
             errors = ["Nem sikerült csatlakozni az adatbázishoz! :("]
     
-    return template('companies', page_title=page_title, css_files=css_files, js_files=js_files, now=now, errors=errors, companies=companies)
+    return template('companies', page_title=page_title, css_files=css_files, js_files=js_files, now=now, errors=errors, prepost=prepost, companies=companies)
     
 @route('/companies', method='POST')
 def companies_post():
@@ -50,7 +52,7 @@ def companies_post():
     now = getdatetime()
     companies = []
     errors = []
-    
+        
     nev = request.forms.get('nev')
     bankszamla = request.forms.get('bankszamla')
     kapcsolattarto = request.forms.get('kapcsolattarto')
@@ -60,13 +62,13 @@ def companies_post():
         print("POST -- nev: {0}, bankszamla: {1}, kapcsolattarto: {2}, operator: {3}".format(nev, bankszamla, kapcsolattarto, operator))
     
     try:
-        companies = get_companies(nev=nev, bankszamla=bankszamla, kapcsolattarto=kapcsolattarto, operator=operator)
+        companies, prepost = get_companies(nev=nev, bankszamla=bankszamla, kapcsolattarto=kapcsolattarto, operator=operator)
     except DBAPIError as e:
         if DEBUG:
             print(e.message)
             errors = ["Nem sikerült csatlakozni az adatbázishoz! :("]
-    
-    return template('companies', page_title=page_title, css_files=css_files, js_files=js_files, now=now, errors=errors, companies=companies)
+        
+    return template('companies', page_title=page_title, css_files=css_files, js_files=js_files, now=now, errors=errors, companies=companies, prepost=prepost)
 
     
 @route('/company-details/<id:int>')

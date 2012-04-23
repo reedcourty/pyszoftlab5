@@ -9,18 +9,26 @@
                 <table id="search_form_table">
                     <tr>
                         <td><label for="nev">Név:</label></td>
-                        <td><input id="nev" name="nev" type="search" /></td>
+                        <td><input id="nev" name="nev" type="search" value="{{prepost['nev']}}" /></td>
                         <td><label for="bankszamla">Bankszámla:</label></td>
-                        <td><input id="bankszamla" name="bankszamla" type="search" /></td>
+                        <td><input id="bankszamla" name="bankszamla" type="search" value="{{prepost['bankszamla']}}" /></td>
                         <td><label for="kapcsolattarto">Kapcsolattartó:</label></td>
-                        <td><input id="kapcsolattarto" name="kapcsolattarto" type="search" /></td>   
+                        <td><input id="kapcsolattarto" name="kapcsolattarto" type="search" value="{{prepost['kapcsolattarto']}}"/></td>   
                     </tr>
                     <tr>
-                        <td><input id="operator_and" name="operator" type="radio" value="AND" checked="checked" /></td>
+                        %if prepost['operator'] == 'AND':
+                            <td><input id="operator_and" name="operator" type="radio" value="AND" checked="checked" /></td>
+                        %else:
+                            <td><input id="operator_and" name="operator" type="radio" value="AND" /></td>
+                        %end
                         <td colspan="5" style="text-align: left;"><label for="operator_and">A megadott feltételek mind illeszkedjenek</label></td>
                     </tr>
                     <tr>
-                        <td><input id="operator_or" name="operator" type="radio" value="OR" /></td>
+                        %if prepost['operator'] == 'OR':
+                            <td><input id="operator_or" name="operator" type="radio" value="OR" checked="checked" /></td>
+                        %else:
+                            <td><input id="operator_or" name="operator" type="radio" value="OR" /></td>
+                        %end
                         <td colspan="3" style="text-align: left;"><label for="operator_or">A megadott feltételek bármelyike illeszkedjen</label></td>
                         <td colspan="2"><input type="submit" value="Keresés" /></td>
                     </tr>
