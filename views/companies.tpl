@@ -20,10 +20,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                    
                         %for company in companies:
                             <tr>
-                                <td>{{company['nev']}}</a></td>
+                                <td><a href="/company-details/{{company['id']}}">{{company['nev']}}</a></td>
                                 <td>{{company['kapcsolattarto']}}</td>
                             </tr>
                         %end

@@ -7,7 +7,7 @@ from sqlalchemy.exc import DBAPIError
 
 from bottle import debug, route, template, run, static_file
 
-from functions import getdatetime, get_companies
+from functions import getdatetime, get_companies, get_company_details
 from config import PROJECT_PATH, DEBUG, MAIN_TITLE
 
 debug(DEBUG)
@@ -41,12 +41,24 @@ def companies():
     
     return template('companies', page_title=page_title, css_files=css_files, js_files=js_files, now=now, errors=errors, companies=companies)
     
-@route('/company-details')
-def companies():
+@route('/company-details/<id:int>')
+def companies(id):
     page_title = "Cég részletei - {0}".format(MAIN_TITLE)
     css_files = ['/static/style.css', '/static/style_.css']
     js_files = []
     now = getdatetime()
-    return template('company-details', page_title=page_title, css_files=css_files, js_files=js_files, now=now)
+    company = []
+    errors = []
+    try:
+        company = get_company_details(id)[0]
+    except DBAPIError as e:
+        if DEBUG:
+            print(e.message)
+            errors = ["Nem sikerült csatlakozni az adatbázishoz! :("]
+    except IndexError:
+        company = []
+        errors = ["Nincs ilyen azonosítóval rendelkező cég az adatbázisban! :("]
+        
+    return template('company-details', page_title=page_title, css_files=css_files, js_files=js_files, now=now, errors=errors, company=company)
     
 run(host='localhost', port='80', reloader=True)
