@@ -3,14 +3,12 @@
 
 import os
 
-PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
-os.chdir(PROJECT_PATH)
-
 from functions import getdatetime
+from config import PROJECT_PATH, DEBUG
 
 from bottle import debug, route, template, run, static_file
 
-debug(True)
+debug(DEBUG)
 
 @route('/')
 def index():

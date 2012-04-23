@@ -22,5 +22,10 @@ Alap template rendszer működése, paraméter átadás, include lehetősége, p
 
 Static Files
 
+2. feladat
+----------
+
+Lett config.py, ami kicsit talán erőltetett.
+
 
     
