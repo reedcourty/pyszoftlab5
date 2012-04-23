@@ -3,10 +3,12 @@
 
 import os
 
-from functions import getdatetime
-from config import PROJECT_PATH, DEBUG
+from sqlalchemy.exc import DBAPIError
 
 from bottle import debug, route, template, run, static_file
+
+from functions import getdatetime, get_companies
+from config import PROJECT_PATH, DEBUG
 
 debug(DEBUG)
 
@@ -28,7 +30,16 @@ def companies():
     css_files = ['/static/style.css', '/static/style_.css']
     js_files = []
     now = getdatetime()
-    return template('companies', page_title=page_title, css_files=css_files, js_files=js_files, now=now)
+    companies = []
+    errors = []
+    try:
+        companies = get_companies()
+    except DBAPIError as e:
+        if DEBUG:
+            print(e.message)
+            errors = ["Nem sikerült csatlakozni az adatbázishoz! :("]
+    
+    return template('companies', page_title=page_title, css_files=css_files, js_files=js_files, now=now, errors=errors, companies=companies)
     
 @route('/company-details')
 def companies():

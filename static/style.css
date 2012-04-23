@@ -54,8 +54,46 @@ body {
     font-size: 18px;
 }
 
+#main table {
+    margin: 20px;
+    font-family: arial;
+    border-spacing: 0px;
+    border-left: solid 1px #4B5320;
+    border-bottom: solid 1px #4B5320;
+}
+
+#main tr td {
+    border-right: solid 1px #4B5320;
+    border-top: solid 1px #4B5320;
+    font-size: 14px;
+    padding: 3px;
+} 
+
+#main th {
+    border-right: solid 1px #4B5320;
+    border-top: solid 1px #4B5320;
+    font-size: 16px;
+    padding: 3px;
+    background-color: #8DB600;
+}
+
 #footer {
     margin: 0px;
     padding: 1px 10px;
     background-color: #8DB600;
+}
+
+.error {
+    padding: 5px;
+    margin: 20px;
+    border: solid 2px #A40000;
+    width: auto;
+    background-color: #E03C31;
+    color: #8B0000;
+    font-weight: bold;
+}
+
+.error p {
+    padding: 0px;
+    margin: 0px;
 }
